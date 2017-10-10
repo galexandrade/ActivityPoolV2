@@ -1,0 +1,194 @@
+<div class="container" style="width: 670px;">
+  <div class="row">
+    <form #f="ngForm">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-3">
+          <thf-button
+            t-primary="false"
+            t-small="true"
+            t-label="Voltar"
+            t-icon="thf-icon-arrow-left"
+            (t-click)="goBack()">
+          </thf-button>
+        </div>
+        <div class="col-xs-9">
+          <div class="alert alert-info" *ngIf="planning.hasAgenda !== 'Sim'">
+            N&atilde;o necessita solicita&ccedil;&atilde;o de agenda!
+            <a (click)="planning.hasAgenda = 'Sim'">Solicitar agenda mesmo assim!</a>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-5">
+          <thf-datepicker
+            [(ngModel)]="date"
+            name="date"
+            t-format="dd/mm/yyyy"
+            t-label="Data"
+            [t-start]="dateStart"
+            [t-end]="dateEnd"
+            t-required="true">
+          </thf-datepicker>    
+        </div>
+        <div class="col-xs-7">
+          <thf-input
+            [ngModel]="planning.clientName"
+            name="clientName"
+            t-label="Cliente"
+            t-placeholder="Nome do cliente"
+            t-maxlength="100"
+            t-required
+            t-disabled="true">
+          </thf-input>
+        </div>
+      </div>       
+    </div>
+    <ng-template #mainData>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-4">
+              <thf-input
+                [ngModel]="planning.chamado"
+                name="ticket"
+                t-label="Tiket"
+                t-placeholder="Código do Ticket"
+                t-maxlength="20"
+                t-required>
+              </thf-input>
+            </div>
+            <div class="col-xs-4">
+              <thf-input
+                [ngModel]="planning.cfpProject"
+                name="project"
+                t-label="Projeto"
+                t-placeholder="Projeto"
+                t-maxlength="20"
+                t-required>
+              </thf-input>
+            </div>
+            <div class="col-xs-4">
+              <thf-input
+                [ngModel]="planning.pmsProject"
+                name="front"
+                t-label="Frente"
+                t-placeholder="Frente"
+                t-maxlength="5"
+                t-required>
+              </thf-input>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <thf-info t-label="Atividade"></thf-info>
+          <textarea 
+            [ngModel]="planning.resumo"
+            name="activity" 
+            id="atividade" 
+            rows="4" 
+            class="form-control" ></textarea>
+        </div>
+      </div>
+    </ng-template>
+    <div class="col-xs-12">
+      <ng-template [ngIf]="planning.hasAgenda === 'Sim'" [ngIfElse]="mainData">
+        <thf-tabs t-small>
+          <thf-tab
+              t-active="true"
+              t-hide="false"
+              t-id="main"
+              t-label="Geral" >
+            <ng-container *ngTemplateOutlet="mainData"></ng-container>
+          </thf-tab>
+          <thf-tab
+              t-active="false"
+              t-id="horario"
+              t-label="Horário" >
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <thf-input
+                      [(ngModel)]="timeIni"
+                      name="timeStart"
+                      t-label="Hora Início"
+                      t-placeholder="Hora início"
+                      t-mask="99:99">
+                    </thf-input>
+                  </div>
+                  <div class="col-xs-4">
+                    <thf-input
+                      [(ngModel)]="timeFinal"
+                      name="timeEnd"
+                      t-label="Hora Final"
+                      t-placeholder="Hora final"
+                      t-mask="99:99"
+                      t-maxlength="5">
+                    </thf-input>
+                  </div>
+                  <div class="col-xs-4">
+                    <thf-input
+                      [(ngModel)]="timeIntervalo"
+                      name="timeInterval"
+                      t-label="Intervalo"
+                      t-placeholder="Intervalo"
+                      t-mask="99:99"
+                      t-maxlength="5">
+                    </thf-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </thf-tab>
+          <thf-tab
+            t-active="false"
+            t-id="email"
+            t-label="Enviar para" >
+            <div class="row">
+              <div class="col-xs-12">
+                <thf-input
+                  [(ngModel)]="email"
+                  name="email"
+                  t-label="Email"
+                  t-placeholder="Email"
+                  t-required>
+                </thf-input>
+              </div>
+              <div class="col-xs-12">
+                <thf-input
+                  ngModel
+                  name="emailcc"
+                  t-label="CC"
+                  t-placeholder="Email em cópia">
+                </thf-input>
+              </div>
+            </div>
+          </thf-tab>
+        </thf-tabs>
+      </ng-template>
+    </div>    
+    <div class="col-xs-12">
+      <br>
+      <thf-button 
+        t-primary="true"
+        t-label="Solicitar Agenda"
+        t-icon="thf-ok"
+        (t-click)="onSendRequest(f.value)"
+        class="btnSubmit"
+        *ngIf="planning.hasAgenda === 'Sim'">
+      </thf-button>
+      <thf-button 
+        t-primary="true"
+        t-label="Preencher campos"
+        t-icon="thf-edit"
+        (t-click)="fillForm(f.value)"
+        class="btnSubmit"
+        *ngIf="planning.hasAgenda !== 'Sim'">
+      </thf-button>
+    </div>
+    </form>
+  </div>
+</div>

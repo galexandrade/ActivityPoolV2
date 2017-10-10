@@ -1,0 +1,44 @@
+<div class="container" style="width: 470px;">
+  <div class="row">
+    <form #f="ngForm" (submit)="onSubmit(f.value)">
+    <div class="col-xs-12 text-center">
+      <h1>Activity Pool</h1>
+    </div>
+    <div class="col-xs-12">
+      <thf-input
+        t-label="Email"
+        t-placeholder="seuemail@totvs.com.br"
+        name="username"
+        ngModel
+        t-maxlength="100"
+        t-required>
+      </thf-input>
+    </div>
+    <div class="col-xs-12">
+      <thf-info t-label="Senha"></thf-info>
+      <input 
+        type="password" 
+        name="password"
+        ngModel
+        class="thf-input-elem"
+        placeholder="Digite sua senha">
+    </div>
+    <div class="col-xs-12">
+      <br/>
+      <thf-button
+        t-primary="true"
+        t-label="Login"
+        t-icon="thf-ok"
+        class="btnSubmit"
+        (click)="onSubmit(f.value)"
+        >
+      </thf-button>
+    </div>
+    <div class="col-xs-12 text-right links">
+      <a href="http://totvsjoi-hcm08.jv01.local:9090/tasks/#/forget" target="blanc">Esqueci minha senha</a>
+      &nbsp;|&nbsp;
+      <a href="http://totvsjoi-hcm08.jv01.local:9090/tasks/#/signup" target="blanc">Ainda não tenho cadastro</a>
+    </div>
+    </form>
+  </div>
+</div>

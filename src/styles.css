@@ -1,1 +1,56 @@
+a{
+    cursor: pointer;
+}
+
 /* You can add global styles to this file, and also import other style files */
+.page-head, .thf-page-content{
+    padding-left: 0px !important;
+    padding-top: 5px !important;
+    padding-right: 0px !important;
+}
+
+.btnSubmit button{
+    display: block !important;
+    width:100% !important;
+    margin-top: -15px;
+}
+
+.btnSearchModeTask button{
+    margin-top: 28px !important;
+    margin-left: -20px !important;
+    height: 45px;
+    width:100px;
+}
+
+/* Ajustar component THF-GRID */
+kendo-grid .k-grid-toolbar{
+    visibility: hidden !important;
+    position: absolute !important;
+}
+
+kendo-grid table tr td:last-child, kendo-grid table tr th:last-child{
+    background-color: blue !important;
+    visibility: hidden !important;
+    position: absolute !important;
+}
+
+kendo-grid .k-grid-content{
+    overflow-x: hidden;
+    max-height: 265px !important;
+}
+
+input.thf-input-elem{
+    margin-top: 0px !important;
+}
+
+.thf-span-datepicker{
+    top: 10px !important;
+}
+
+.thf-info.value{
+    display: none !important;
+}
+
+input.thf-input-elem[type=password] {
+    margin-top: 5px !important;
+}

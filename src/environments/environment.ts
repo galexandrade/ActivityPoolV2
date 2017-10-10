@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  publicApiUrl: 'http://totvsjoi-hcm08.jv01.local:9090/task-manager/api/public/v1',
+  apiUrl: 'http://totvsjoi-hcm08.jv01.local:9090/task-manager/api/v1',
+  apiPool: 'http://totvsjoi-hcm08.jv01.local:9090/pool-reader/api/rest'
 };

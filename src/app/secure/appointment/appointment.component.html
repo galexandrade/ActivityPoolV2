@@ -1,0 +1,158 @@
+<div class="container" style="width: 670px;">
+  <div class="row">
+    <form #f="ngForm">
+    <div class="col-xs-12">
+      <thf-button
+        t-primary="false"
+        t-small="true"
+        t-label="Voltar"
+        t-icon="thf-icon-arrow-left"
+        (t-click)="goBack()"
+        class="btn-voltar">
+      </thf-button>
+      <thf-button
+        t-primary="true"
+        t-small="true"
+        [t-label]="seachTicketMode ? 'Filtrar por data' : 'Filtrar por ticket'"
+        [t-icon]="seachTicketMode ? 'thf-icon-calendar' : 'thf-filter'"
+        (t-click)="switchSearchMode()"
+        class="btn-filtar"
+        *ngIf="showFilter">
+      </thf-button>
+      <thf-button
+        t-primary="true"
+        t-small="true"
+        [t-label]="showFilter ? 'Esconder filtros' : 'Mostrar filtros'"
+        [t-icon]="showFilter ? 'thf-minus' : 'thf-plus'"
+        (t-click)="switchFilter()"
+        class="btn-filtar">
+      </thf-button>
+    </div>
+    <div class="col-xs-12" *ngIf="showFilter">
+      <div class="row">
+          <div class="col-xs-5" *ngIf="!seachTicketMode">
+            <thf-datepicker
+              [(ngModel)]="dateIni"
+              t-format="dd/mm/yyyy"
+              t-label="De"
+              [t-start]="dateIniMonth"
+              [t-end]="dateFin"
+              t-required="true"
+              name="dateIni"
+              class="search-field">
+            </thf-datepicker>
+          </div>
+          <div class="col-xs-5" *ngIf="!seachTicketMode">
+            <thf-datepicker
+              [(ngModel)]="dateFin"
+              t-format="dd/mm/yyyy"
+              t-label="Até"
+              [t-start]="dateIni"
+              [t-end]="dateFinMonth"
+              t-required="true"
+              name="dateFin">
+            </thf-datepicker>
+          </div>
+          <div class="col-xs-5 col-xs-offset-5" *ngIf="seachTicketMode">
+            <thf-input
+              [(ngModel)]="ticketSearch"
+              t-label="Tiket"
+              t-placeholder="Código do Ticket"
+              name="ticket"
+              t-maxlength="20"
+              t-required>
+            </thf-input>
+          </div>
+          <div class="col-xs-2 text-right">
+            <thf-button
+              t-primary="false"
+              t-small="true"
+              t-label=""
+              t-icon="thf-search"
+              (t-click)="search()"
+              class="btnSearchModeTask">
+            </thf-button>
+          </div>
+      </div>
+    </div>  
+    <div class="col-xs-12" [ngClass]="showFilter ? 'tasks-tables' : 'tasks-tables-extended'">
+      <div class="row">
+        <div class="col-xs-12 table_agendas" *ngFor="let planning of plannings">
+          <table class="table table-hover main_table">
+            <thead>
+              <tr>
+                <th>Cod</th>
+                <th>Nome Cliente</th>
+                <th>Ticket</th>
+                <th>Projeto</th>
+                <th>Frente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{planning.clientCode}}</td>
+                <td>{{planning.clientName}}</td>
+                <td>{{planning.chamado}}</td>
+                <td>{{planning.cfpProject}}</td>
+                <td>{{planning.pmsProject}}</td>
+              </tr>
+              <tr class='expanded'>
+                <td colspan='5'>
+                  <div class="table-detail-container">
+                    <thf-grid
+                      [t-data]="planning.items"
+                      [t-columns]="columns"
+                      [t-sortable]="false"
+                      [t-selectable]="false"
+                      [t-editable]="true"
+                      [t-show-more-disabled]="false"
+                      [t-show-remove-button]="false"
+                      [t-show-add-button]="false"
+                      [t-show-export-buttons]=false>
+                    </thf-grid>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-12" *ngIf="plannings.length === 0">
+          <div class="alert alert-warning">
+            Nenhuma atividade encontrada!
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="row" class="email-form">
+        <div class="col-xs-6">
+          <thf-input
+            [(ngModel)]="email"
+            name="email"
+            t-label="Email"
+            t-placeholder="Email"
+            t-required>
+          </thf-input>
+        </div>
+        <div class="col-xs-6">
+          <thf-input
+            [(ngModel)]="emailcc"
+            name="emailcc"
+            t-label="CC"
+            t-placeholder="Email em cópia">
+          </thf-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <thf-button
+        t-primary="true"
+        t-label="Solicitar agendas"
+        t-icon="thf-ok"
+        (t-click)="onSendRequest()"
+        class="btnSubmit">
+      </thf-button>
+    </div>
+    </form>
+  </div>
+</div>

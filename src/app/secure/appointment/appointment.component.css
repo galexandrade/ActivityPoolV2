@@ -1,0 +1,110 @@
+.container{
+    padding-top: 50px;
+}
+
+.btn-filtar, .btn-voltar{
+    float: left;
+    margin-right: 5px;
+}
+
+.search-field{
+    width: 20px;
+}
+
+textarea{
+    margin-top: -10px;
+}
+
+.alert {
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+}
+
+.table{
+    margin-bottom: 0px;
+    min-width: 560px;
+}
+
+.table thead tr{
+    background-color: #0B8FBE;
+    color: whitesmoke;
+}
+
+.table tbody tr{
+    cursor: pointer;
+}
+
+.table_agendas button{
+    float: right;
+}
+
+.table_agendas table tbody tr td{
+    line-height: 1.8;
+}
+
+.main_table>tbody>tr:not(.expanded){
+    border: 1px solid #ddd;
+    background-color: #f3f3f3;
+}
+
+.main_table .expanded{
+    cursor: auto;
+}
+
+.main_table .expanded:hover{
+    background-color: white;
+}
+
+.main_table .collapse td{
+    padding-top: 0px;
+}
+
+.vcenter {
+    line-height: 3 !important;
+}
+
+.tasks-tables{
+    max-height: 300px; 
+    overflow-x: hidden;
+    margin-top: -15px;
+}
+
+.tasks-tables-extended{
+    max-height: 400px; 
+    margin-top: 5px;
+    overflow: auto;
+}
+
+.tasks-tables .table_agendas{
+    overflow: hidden;
+}
+
+.tasks-tables-extended .table_agendas{
+    overflow: hidden;
+}
+
+table.main_table .table-detail-container{
+    max-width: 640px;
+    overflow: hidden;
+    margin-top:-8px;
+    max-height: 300px;
+    margin-left: -8px;
+}
+
+.email-form{
+    margin-top:-10px;
+}
+
+/*
+.tasks-tables table.main_table .table-detail-container{
+    margin-left: -8px;
+}
+
+.tasks-tables-extended table.main_table .table-detail-container{
+    margin-right: -8px;
+    float: right;
+}
+*/
+

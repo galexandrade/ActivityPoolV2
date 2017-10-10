@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IThfMenu } from "@totvs/thf-web/components/thf-menu/thf-menu.interface";
 import { ParameterService } from "app/core/parameter.service";
 
 @Component({
@@ -8,7 +7,7 @@ import { ParameterService } from "app/core/parameter.service";
   styleUrls: ['./secure.component.css']
 })
 export class SecureComponent implements OnInit {
-  menu: IThfMenu[];
+  menu: any[];
   
   constructor(private parameterService: ParameterService) {
     this.menu = [

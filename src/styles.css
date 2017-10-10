@@ -23,6 +23,10 @@ a{
 }
 
 /* Ajustar component THF-GRID */
+kendo-grid{
+    height: auto !important;
+}
+
 kendo-grid .k-grid-toolbar{
     visibility: hidden !important;
     position: absolute !important;
@@ -37,6 +41,10 @@ kendo-grid table tr td:last-child, kendo-grid table tr th:last-child{
 kendo-grid .k-grid-content{
     overflow-x: hidden;
     max-height: 265px !important;
+}
+
+.k-grid tbody{
+    overflow: hidden !important;
 }
 
 input.thf-input-elem{

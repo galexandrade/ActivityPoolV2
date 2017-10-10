@@ -1,5 +1,5 @@
 import { NgModule, Compiler } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SecureRoutingModule } from "app/secure/secure-routing.module";
 import { TaskComponent } from "app/secure/task/task.component";
 import { AppointmentComponent } from "app/secure/appointment/appointment.component";
@@ -45,6 +45,7 @@ import { ThfGridModule } from '@totvs/thf-web/components/thf-grid';
     TaskComponent,
     SecureComponent,
     TaskModalComponent
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class SecureModule { }

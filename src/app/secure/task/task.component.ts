@@ -7,7 +7,8 @@ import { AgendaRequestItem } from "app/shared/agenda-request-item";
 import { Task } from "app/shared/task";
 import { AgendaService } from "app/core/agenda.service";
 import { ParameterService } from "app/core/parameter.service";
-import * as moment from 'moment';
+import { DatePipe } from "@angular/common";
+//import * as moment from 'moment';
 
 @Component({
   selector: 'app-task',
@@ -30,7 +31,8 @@ export class TaskComponent implements OnInit {
   constructor(private route: Router,
               private agendaService: AgendaService,
               private parameterService: ParameterService,
-              private poolService: PoolService) { 
+              private poolService: PoolService,
+              private datePipe: DatePipe) { 
     if(!this.poolService.selectedPlanning)
       this.goBack();
   }
@@ -61,7 +63,8 @@ export class TaskComponent implements OnInit {
           form.front,
           [
             new Task(
-              moment(form.date).format("YYYY-MM-DD"),
+              //moment(form.date).format("YYYY-MM-DD"),
+              this.datePipe.transform(new Date(form.date), "y-MM-dd"),
               form.timeStart,
               form.timeEnd,
               form.timeInterval,
@@ -84,7 +87,8 @@ export class TaskComponent implements OnInit {
 
   fillForm(form: any){
     console.log(form);
-    let data_planing = moment(form.date).format("DD/MM/YYYY");
+    //let data_planing = moment(form.date).format("DD/MM/YYYY");
+    let data_planing = this.datePipe.transform(new Date(form.date), "y-MM-dd");    
     let activity = form.activity.replace("\n", " ");
 
     console.log(activity);

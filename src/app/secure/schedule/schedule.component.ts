@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IThfMenu } from "@totvs/thf-web/components/thf-menu/thf-menu.interface";
+import { ThfMenuItem } from '@totvs/thf-core/components/thf-menu-base'; 
 import { AgendaService } from "app/core/agenda.service";
 import { Agenda } from "app/shared/agenda";
 import { PoolService } from "app/core/pool.service";
 import { CalendarComponent } from "ap-angular2-fullcalendar";
-import * as moment from 'moment';
+//import * as moment from 'moment';
 import { Planning } from "app/shared/planning";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-schedule',
@@ -24,13 +25,15 @@ export class ScheduleComponent{
     eventLimit: true, // allow "more" link when too many events
     viewRender: this.viewRender.bind(this),
     eventClick: this.eventClick.bind(this),
+    locale: 'pt-br',
     events: []
   };
 
   constructor(private poolService: PoolService,
               private route: ActivatedRoute,
               private router: Router,
-              private slimLoadingBarService: SlimLoadingBarService) { 
+              private slimLoadingBarService: SlimLoadingBarService,
+              private datePipe: DatePipe) { 
     
   }
 
@@ -39,11 +42,14 @@ export class ScheduleComponent{
   }
 
   viewRender(view: any, element: any){
-    let finalDate: Date = moment(view.currentRange.end, "MM-DD-YYYY").toDate();
-    let initialDate: Date = new Date(moment(finalDate).format("YYYY-MM") + "-01T10:00:00.0+0100");
+    //let finalDate: Date = moment(view.currentRange.end, "MM-DD-YYYY").toDate();
+    let finalDate: Date = new Date(view.currentRange.end);
+    
+    //let initialDate: Date = new Date(moment(finalDate).format("YYYY-MM") + "-01T10:00:00.0+0100");
+    let initialDate: Date = new Date(this.datePipe.transform(finalDate,"y-MM") + "-01T10:00:00.0+0100");
 
     this.poolService.initialDate = initialDate;
-    this.poolService.finalDate = new Date(moment(finalDate).format("YYYY-MM-DD") + "T10:00:00.0+0100");
+    this.poolService.finalDate = new Date(this.datePipe.transform(finalDate, "y-MM-dd") + "T10:00:00.0+0100");
 
     this.search(initialDate, finalDate);
   }
@@ -74,8 +80,10 @@ export class ScheduleComponent{
   search(initialDate: Date, finalDate: Date): void {
     const params = {
       allocationTypes: "EM,FE,FN,PL,PV,RP",
-      initialDate: moment(initialDate).format("YYYY-MM-DD"),
-      finalDate: moment(finalDate).format("YYYY-MM-DD"),
+      //initialDate: moment(initialDate).format("YYYY-MM-DD"),
+      initialDate: this.datePipe.transform(initialDate, "y-MM-dd"),
+      //finalDate: moment(finalDate).format("YYYY-MM-DD"),
+      finalDate: this.datePipe.transform(finalDate, "y-MM-dd"),
       ociosity: false,
       resources: "313075",
       detail: true
@@ -103,10 +111,13 @@ export class ScheduleComponent{
           //REMOVER
           //planning.hasAgenda = "Sim";
 
+          if(planning.chamado === "SIMUSC")
+            console.log(planning.termino);
+
           events.push({
             title: title,
             start: planning.inicio,
-            end: planning.termino,
+            end: planning.termino + "T10:00:00.0+0100",
             backgroundColor: this.poolService.EVENTCOLOR[planning.alocacao],
             planning: planning
           });

@@ -34,7 +34,8 @@ export class AgendaService {
   }
 
   request(request: AgendaRequest): Observable<any> {
+    console.log(request);
     let url: string = this.resourcePath + '/request';
-    return this.http.put(url, request);
+    return this.http.post(url, request);
   }
 }

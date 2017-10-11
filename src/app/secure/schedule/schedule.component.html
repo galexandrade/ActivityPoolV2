@@ -4,6 +4,7 @@
             <angular2-fullcalendar #calendar [options]="calendarOptions" 
                     (initialized)="onCalendarInit($event)">
             </angular2-fullcalendar>
+            {{legend | json}}
         </div>        
     </div>
 </div>

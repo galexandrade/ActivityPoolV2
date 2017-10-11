@@ -94,7 +94,6 @@ export class AppointmentComponent implements OnInit {
 
         data.push({ 
           selected: true,
-          //data: moment(dateIni).format("DD/MM/YYYY"), 
           data: this.datePipe.transform(dateIni, "dd/MM/y"), 
           horaIni: '08:00', 
           horaFin: '18:00', 

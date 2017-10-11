@@ -18,6 +18,7 @@ import { DatePipe } from "@angular/common";
 export class ScheduleComponent{
   plannings: Planning[];
   @ViewChild('calendar') calendar: CalendarComponent;
+  legend = [];
   
   calendarOptions:Object = {
     fixedWeekCount : false,
@@ -55,6 +56,9 @@ export class ScheduleComponent{
   }
 
   eventClick(event: any, jsEvent: any, view: any){
+    if(event.holiday)
+      return;
+
     let days = jsEvent.target.closest('table').querySelectorAll('.fc-day-top');
     let daySelected: any;
     for (var i = 0; i < days.length; i++){
@@ -111,9 +115,6 @@ export class ScheduleComponent{
           //REMOVER
           //planning.hasAgenda = "Sim";
 
-          if(planning.chamado === "SIMUSC")
-            console.log(planning.termino);
-
           events.push({
             title: title,
             start: planning.inicio,
@@ -121,6 +122,31 @@ export class ScheduleComponent{
             backgroundColor: this.poolService.EVENTCOLOR[planning.alocacao],
             planning: planning
           });
+
+          if(this.legend.filter(ele => ele.cod === planning.alocacao).length === 0){
+            this.legend.push({
+              cod: planning.alocacao,
+              color: this.poolService.EVENTCOLOR[planning.alocacao],
+              desc: planning.alocacao
+            });
+          }
+        });
+
+        res.holidays.forEach(holiday => {
+          events.push({
+              start: holiday.date + 'T10:00:00',
+              end: holiday.date + 'T10:00:00',
+              title: holiday.name,
+              holiday: true
+          });
+
+          if(this.legend.filter(ele => ele.cod === "FERIADO").length === 0){
+            this.legend.push({
+              cod: "FERIADO",
+              color: this.poolService.EVENTCOLOR["FERIADO"],
+              desc: "FERIADO"
+            });
+          }
         });
 
         this.calendar.fullCalendar('removeEvents');

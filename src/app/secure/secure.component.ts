@@ -14,6 +14,11 @@ export class SecureComponent implements OnInit {
       { menuName: 'home', label: 'Home', link: '.' },
       { menuName: 'appointment', label: 'Solicitar agendas', link: './appointment' },
       { menuName: 'help', label: 'Ajuda', link: 'http://fluig.totvs.com/portal/p/10097/ecmnavigation?app_ecm_navigation_doc=5164848' },
+      { label: "Links úteis", subItems: [
+        {label: "Portal de Serviços", link: "http://fluig.totvs.com/portal/p/10097/portal-servicos"},
+        {label: "Pool de Recursos", link: "http://totvsjoi-hcm08:8080/portal/hcm/pool-recursos"},
+        {label: "Task Manager", link: "http://totvsjoi-hcm08.jv01.local:9090/tasks"}
+      ] },
       { menuName: 'logout', label: 'Sair', link: "/login" }
     ];
 

@@ -35,4 +35,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  pressKey(e, form){
+    if(e.keyCode === 13){
+      this.onSubmit(form.value);
+    }
+  }
+
 }

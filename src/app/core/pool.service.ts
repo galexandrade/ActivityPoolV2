@@ -9,14 +9,38 @@ import { Planning } from "app/shared/planning";
 @Injectable()
 export class PoolService {
   EVENTCOLOR = {
-    EM: "#808080",
-    FE: "#FF8C00",
-    FN: "#CC00FF",
-    PL: "#FF5050",
-    PV: "#00CC00",
-    RP: "#FFCC00",
-    FERIADO: "rgba(174, 234, 255, 0.55)",
-    HOJE: "#337ab7"
+    EM: {
+      "desc": "Empréstimo",
+      "color": "#808080"
+    },
+    FE: {
+      "desc": "Férias",
+      "color": "#FF8C00"
+    },
+    FN: {
+      "desc": "Finalizado",
+      "color": "#CC00FF"
+    },
+    PL: {
+      "desc": "Planejado",
+      "color": "#FF5050"
+    },
+    PV: {
+      "desc": "Previsto",
+      "color": "#00CC00"
+    },
+    RP: {
+      "desc": "Replanejar",
+      "color": "#FFCC00"
+    },
+    FERIADO: {
+      "desc": "Feriado",
+      "color": "#4682B4"
+    },
+    HOJE: {
+      "desc": "Hoje",
+      "color": "#337ab7"
+    }
   };
 
   selectedPlanning: Planning;

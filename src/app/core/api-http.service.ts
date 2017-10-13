@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ToasterService } from 'angular2-toaster';
 import { Http } from "@angular/http";
+import { SlimLoadingBarService } from "ng2-slim-loading-bar";
 
 @Injectable()
 export class ApiHttpService {
@@ -15,12 +16,14 @@ export class ApiHttpService {
 
   constructor(private http: AuthHttp,
               private httpDefault: Http,
-              private toaster: ToasterService) {
+              private toaster: ToasterService,
+              private slimLoadingBarService: SlimLoadingBarService) {
     this.url = environment.apiUrl;
     this.urlPool = environment.apiPool;
   }
 
   post(resourcePath: string, data: any): Observable<any> {
+    this.slimLoadingBarService.start();
     let url : string = this.url + '/' + resourcePath;
     return this.http.post(url, data)
       .map(res => this.decodeSuccess(res))
@@ -30,6 +33,7 @@ export class ApiHttpService {
   }
 
   put(resourcePath: string, data: any): Observable<any> {
+    this.slimLoadingBarService.start();
     let url : string = this.url + '/' + resourcePath;
     return this.http.put(url, data)
       .map(res => this.decodeSuccess(res))
@@ -39,6 +43,7 @@ export class ApiHttpService {
   }
 
   get(resourcePath: string, params?: any, fromPool?: boolean): Observable<any> {
+    this.slimLoadingBarService.start();
     let url : string = (!fromPool ? this.url : this.urlPool) + '/' + resourcePath;
 
     if(params) {
@@ -65,6 +70,7 @@ export class ApiHttpService {
   }
 
   delete(resourcePath: string): Observable<any> {
+    this.slimLoadingBarService.start();
     let url : string = this.url + '/' + resourcePath;
     return this.http.delete(url)
       .map(res => this.decodeSuccess(res))
@@ -74,6 +80,7 @@ export class ApiHttpService {
   }
 
   decodeSuccess(data: any): any {
+    this.slimLoadingBarService.complete();
     data = data.json();
     if(data.status && data.message) {
       this.toaster.pop({
@@ -85,6 +92,7 @@ export class ApiHttpService {
   }
 
   decodeError(data: any): any {
+    this.slimLoadingBarService.complete();
     if(data.code && data.status && data.message) {
       this.toaster.pop({
           type: 'error',

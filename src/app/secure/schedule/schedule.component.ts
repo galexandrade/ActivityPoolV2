@@ -43,10 +43,8 @@ export class ScheduleComponent{
   }
 
   viewRender(view: any, element: any){
-    //let finalDate: Date = moment(view.currentRange.end, "MM-DD-YYYY").toDate();
     let finalDate: Date = new Date(view.currentRange.end);
     
-    //let initialDate: Date = new Date(moment(finalDate).format("YYYY-MM") + "-01T10:00:00.0+0100");
     let initialDate: Date = new Date(this.datePipe.transform(finalDate,"y-MM") + "-01T10:00:00.0+0100");
 
     this.poolService.initialDate = initialDate;
@@ -84,9 +82,7 @@ export class ScheduleComponent{
   search(initialDate: Date, finalDate: Date): void {
     const params = {
       allocationTypes: "EM,FE,FN,PL,PV,RP",
-      //initialDate: moment(initialDate).format("YYYY-MM-DD"),
       initialDate: this.datePipe.transform(initialDate, "y-MM-dd"),
-      //finalDate: moment(finalDate).format("YYYY-MM-DD"),
       finalDate: this.datePipe.transform(finalDate, "y-MM-dd"),
       ociosity: false,
       resources: "313075",
@@ -95,13 +91,12 @@ export class ScheduleComponent{
 
     this.plannings = new Array<Planning>();
 
-    this.calendarOptions['events'] = [];   
-
-    this.slimLoadingBarService.start();
+    this.calendarOptions['events'] = []; 
 
     this.poolService.get(undefined, params).subscribe(
       res => {
         let events = [];
+        this.legend = [];
         this.plannings = res.plannings;
 
         this.poolService.plannings = this.plannings;
@@ -112,22 +107,19 @@ export class ScheduleComponent{
           if(textSplit.length > 1)
             planning.resumo = textSplit[1];
 
-          //REMOVER
-          //planning.hasAgenda = "Sim";
-
           events.push({
             title: title,
             start: planning.inicio,
             end: planning.termino + "T10:00:00.0+0100",
-            backgroundColor: this.poolService.EVENTCOLOR[planning.alocacao],
+            backgroundColor: this.poolService.EVENTCOLOR[planning.alocacao].color,
             planning: planning
           });
 
           if(this.legend.filter(ele => ele.cod === planning.alocacao).length === 0){
             this.legend.push({
               cod: planning.alocacao,
-              color: this.poolService.EVENTCOLOR[planning.alocacao],
-              desc: planning.alocacao
+              color: this.poolService.EVENTCOLOR[planning.alocacao].color,
+              desc: this.poolService.EVENTCOLOR[planning.alocacao].desc
             });
           }
         });
@@ -143,15 +135,14 @@ export class ScheduleComponent{
           if(this.legend.filter(ele => ele.cod === "FERIADO").length === 0){
             this.legend.push({
               cod: "FERIADO",
-              color: this.poolService.EVENTCOLOR["FERIADO"],
-              desc: "FERIADO"
+              color: this.poolService.EVENTCOLOR["FERIADO"].color,
+              desc: this.poolService.EVENTCOLOR["FERIADO"].desc
             });
           }
         });
 
         this.calendar.fullCalendar('removeEvents');
         this.calendar.fullCalendar('addEventSource', events);
-        this.slimLoadingBarService.complete();
       }
     );
   }

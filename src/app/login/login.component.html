@@ -10,8 +10,10 @@
         t-placeholder="seuemail@totvs.com.br"
         name="username"
         ngModel
+        email
         t-maxlength="100"
-        t-required>
+        t-required
+        (keypress)="pressKey($event, f)">
       </thf-input>
     </div>
     <div class="col-xs-12">
@@ -20,8 +22,10 @@
         type="password" 
         name="password"
         ngModel
+        t-required
         class="thf-input-elem"
-        placeholder="Digite sua senha">
+        placeholder="Digite sua senha"
+        (keypress)="pressKey($event, f)">
     </div>
     <div class="col-xs-12">
       <br/>

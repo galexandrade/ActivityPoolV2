@@ -8,7 +8,7 @@ import { Task } from "app/shared/task";
 import { AgendaService } from "app/core/agenda.service";
 import { ParameterService } from "app/core/parameter.service";
 import { DatePipe } from "@angular/common";
-//import * as moment from 'moment';
+import { SlimLoadingBarService } from "ng2-slim-loading-bar";
 
 @Component({
   selector: 'app-task',
@@ -63,11 +63,10 @@ export class TaskComponent implements OnInit {
           form.front,
           [
             new Task(
-              //moment(form.date).format("YYYY-MM-DD"),
               this.datePipe.transform(new Date(form.date), "y-MM-dd"),
-              form.timeStart,
-              form.timeEnd,
-              form.timeInterval,
+              form.timeStart + ":00:00",
+              form.timeEnd + ":00:00",
+              form.timeInterval + ":00:00",
               form.ticket,
               form.project,
               form.front,
@@ -87,7 +86,6 @@ export class TaskComponent implements OnInit {
 
   fillForm(form: any){
     console.log(form);
-    //let data_planing = moment(form.date).format("DD/MM/YYYY");
     let data_planing = this.datePipe.transform(new Date(form.date), "y-MM-dd");    
     let activity = form.activity.replace("\n", " ");
 
@@ -105,7 +103,7 @@ export class TaskComponent implements OnInit {
                   document.body.appendChild(scr);`,
         }
     );
-    //window.close();
+    window.close();
   }
   
 }

@@ -177,7 +177,6 @@ export class AppointmentComponent implements OnInit {
         this.plannings.push({
           ...ticketPlanning,
           items: [{ 
-            //data: moment(new Date(ticketPlanning.inicio)).format("DD/MM/YYYY"), 
             data: this.datePipe.transform(new Date(ticketPlanning.inicio), "dd/MM/y"), 
             selected: true,
             horaIni: '08:00', 

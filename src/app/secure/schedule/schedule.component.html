@@ -4,7 +4,10 @@
             <angular2-fullcalendar #calendar [options]="calendarOptions" 
                     (initialized)="onCalendarInit($event)">
             </angular2-fullcalendar>
-            <span class="label pull-left" [ngStyle]="{'background-color': leg.color}" *ngFor="let leg of legend">{{leg.desc}}</span>
+            <span class="label pull-left" 
+                [ngStyle]="{'background-color': leg.color}" 
+                *ngFor="let leg of legend"
+                [@enterAnimation]>{{leg.desc}}</span>
         </div>        
     </div>
 </div>

@@ -67,7 +67,7 @@ textarea{
 
 .tasks-tables{
     max-height: 300px; 
-    overflow-x: hidden;
+    overflow: auto;
     margin-top: -15px;
 }
 
@@ -77,33 +77,42 @@ textarea{
     overflow: auto;
 }
 
-.tasks-tables .table_agendas{
-    overflow: hidden;
-}
-
-.tasks-tables-extended .table_agendas{
-    overflow: hidden;
-}
-
-table.main_table .table-detail-container{
-    max-width: 640px;
-    overflow: hidden;
-    margin-top:-8px;
-    max-height: 300px;
-    margin-left: -8px;
-}
-
 .email-form{
     margin-top:0px;
 }
 
-
-.tasks-tables table.main_table .table-detail-container{
-    margin-left: -8px;
+table.main_table .table-detail-container{
+    margin-top:-8px;
 }
 
-.tasks-tables-extended table.main_table .table-detail-container{
-    margin-right: -8px;
-    float: right;
+table.main_table .table-detail-container table{
+    width: 100%;
 }
+
+table.main_table .table-detail-container table thead tr{
+    background-color:white;
+    color: #0B8FBE; 
+    padding: 0px;
+}
+
+table.main_table .table-detail-container table tbody tr td{
+    padding: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+table.main_table .table-detail-container table tbody tr td:first-child input{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: 15px;
+}
+
+table.main_table .table-detail-container table tbody tr td:not(:first-child) input{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    width: 80%;
+}
+
 

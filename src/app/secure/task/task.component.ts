@@ -28,6 +28,8 @@ export class TaskComponent implements OnInit {
   planning: Planning;
   email: string = "";
 
+  sending = false;
+
   constructor(private route: Router,
               private agendaService: AgendaService,
               private parameterService: ParameterService,
@@ -50,6 +52,8 @@ export class TaskComponent implements OnInit {
 
   onSendRequest(form: any){
     console.log(form);
+
+    this.sending = true;
     
     let request: AgendaRequest = new AgendaRequest(
       form.email,
@@ -81,6 +85,7 @@ export class TaskComponent implements OnInit {
     
     this.agendaService.request(request).subscribe((res) => {
       console.log(res);
+      this.sending = false;
     });
   }
 

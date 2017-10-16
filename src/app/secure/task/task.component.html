@@ -175,8 +175,9 @@
       <br>
       <thf-button 
         t-primary="true"
-        t-label="Solicitar Agenda"
-        t-icon="thf-ok"
+        [t-label]="sending ? 'processando' : 'Solicitar agendas' "
+        [t-icon]="sending ? 'thf-icon-more' : 'thf-ok'"
+        [t-disabled]="sending"
         (t-click)="onSendRequest(f.value)"
         class="btnSubmit"
         *ngIf="planning.hasAgenda === 'Sim'">

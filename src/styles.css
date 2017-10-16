@@ -23,6 +23,7 @@ a{
 }
 
 /* Ajustar component THF-GRID */
+/*
 kendo-grid{
     height: auto !important;
 }
@@ -46,6 +47,7 @@ kendo-grid .k-grid-content{
 .k-grid tbody{
     overflow: hidden !important;
 }
+*/
 
 input.thf-input-elem{
     margin-top: 0px !important;

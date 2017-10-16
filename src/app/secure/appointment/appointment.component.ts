@@ -2,22 +2,32 @@ import { Component, OnInit, ViewChild, ElementRef, HostBinding } from '@angular/
 import { Router } from "@angular/router";
 import { PoolService } from "app/core/pool.service";
 import { Planning } from "app/shared/planning";
-//import * as moment from 'moment';
 import { ToasterService } from "angular2-toaster/angular2-toaster";
 import { SlimLoadingBarService } from "ng2-slim-loading-bar";
 import { ParameterService } from "app/core/parameter.service";
 import { SecureModule } from "app/secure/secure.module";
-import { TaskModalComponent } from "app/secure/appointment/task-modal/task-modal.component";
 import { AgendaRequest } from "app/shared/agenda-request";
 import { AgendaRequestItem } from "app/shared/agenda-request-item";
 import { Task } from "app/shared/task";
 import { AgendaService } from "app/core/agenda.service";
 import { DatePipe } from "@angular/common";
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.css']
+  styleUrls: ['./appointment.component.css'],
+  animations: [
+    trigger('enterAnimation', [
+      transition('void => *', [
+        style({
+					opacity: 0
+					//transform: 'translateX(-100px)'
+				}),
+        animate(500)
+      ])
+    ])
+  ]
 })
 export class AppointmentComponent implements OnInit {
   seachTicketMode = false;
@@ -28,9 +38,11 @@ export class AppointmentComponent implements OnInit {
   dateIniMonth: string;
   dateFinMonth: string; 
 
+  sending = false;
+
   columns = [
     { column: 'selected', label: '', width: 45, checkbox: true },
-    { column: 'data', label: 'Data', required: true, editable: true, width: 150, format: "{0:dd/MM/yyyy}" },
+    { column: 'data', label: 'Data', required: true, editable: true, width: 150, format: "dd/MM/yyyy" },
     { column: 'horaIni', label: 'Hr Início', required: true, editable: true, width: 125, editor: 'numeric'  },
     { column: 'horaFin', label: 'Hr Final', required: true, editable: true, width: 125  },
     { column: 'horaInterv', label: 'Hr Interv', required: true, editable: true, width: 125 }
@@ -80,6 +92,7 @@ export class AppointmentComponent implements OnInit {
 
   loadPlannings(){
     this.plannings = [];
+    this.slimLoadingBarService.start();
     this.poolService.plannings.forEach(planning => {
       let data = [];
       
@@ -94,7 +107,7 @@ export class AppointmentComponent implements OnInit {
 
         data.push({ 
           selected: true,
-          data: this.datePipe.transform(dateIni, "dd/MM/y"), 
+          data: this.datePipe.transform(dateIni, "y-MM-dd"), 
           horaIni: '08:00', 
           horaFin: '18:00', 
           horaInterv: '01:30' 
@@ -119,6 +132,7 @@ export class AppointmentComponent implements OnInit {
         });
       }
     });
+    this.slimLoadingBarService.complete();
   }
 
   sortDate(a: any, b: any){
@@ -205,17 +219,21 @@ export class AppointmentComponent implements OnInit {
     let request: AgendaRequest;
     let itensRequest: AgendaRequestItem[] = []; 
 
+    this.sending = true;
+
     this.plannings.forEach(planning => {
       let tasks: Task[] = [];
 
       
       planning.items.forEach(item => {
+        console.log(item);
         let dt = item.data.split("/");
         console.log(dt);
         if(item.selected){
           tasks.push(
             new Task(
-              dt[2] + "-" + dt[1] + "-" + dt[0],
+              //dt[2] + "-" + dt[1] + "-" + dt[0],
+              item.data,
               item.horaIni + ":00:00", //.substring(0,5),
               item.horaFin + ":00:00", //.substring(0,5),
               item.horaInterv + ":00:00", //.substring(0,5),
@@ -250,6 +268,7 @@ export class AppointmentComponent implements OnInit {
     console.log(request);
     this.agendaService.request(request).subscribe((res) => {
       console.log(res);
+      this.sending = false;
     });
   }
 

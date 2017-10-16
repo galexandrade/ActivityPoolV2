@@ -19,7 +19,6 @@ import { ThfInfoModule } from "@totvs/thf-web/components/thf-info";
 import { ThfTabsModule } from '@totvs/thf-web/components/thf-tabs';
 import { SecureComponent } from './secure.component';
 import { SharedModule } from "app/shared/shared.module";
-import { TaskModalComponent } from './appointment/task-modal/task-modal.component';
 import { ThfGridModule } from '@totvs/thf-web/components/thf-grid';
 
 @NgModule({
@@ -43,8 +42,7 @@ import { ThfGridModule } from '@totvs/thf-web/components/thf-grid';
     ScheduleComponent,
     AppointmentComponent,
     TaskComponent,
-    SecureComponent,
-    TaskModalComponent
+    SecureComponent
   ],
   providers: [DatePipe]
 })

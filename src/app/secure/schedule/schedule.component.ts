@@ -9,11 +9,23 @@ import { Planning } from "app/shared/planning";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { DatePipe } from "@angular/common";
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  styleUrls: ['./schedule.component.css'],
+  animations: [
+    trigger('enterAnimation', [
+      transition('void => *', [
+        style({
+					opacity: 0
+					//transform: 'translateX(-100px)'
+				}),
+        animate(500)
+      ])
+    ])
+  ]
 })
 export class ScheduleComponent{
   plannings: Planning[];

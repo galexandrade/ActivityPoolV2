@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { DatePipe } from "@angular/common";
 import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
+import { AuthService } from "app/core/auth.service";
 
 @Component({
   selector: 'app-schedule',
@@ -46,7 +47,8 @@ export class ScheduleComponent{
               private route: ActivatedRoute,
               private router: Router,
               private slimLoadingBarService: SlimLoadingBarService,
-              private datePipe: DatePipe) { 
+              private datePipe: DatePipe,
+              private authService: AuthService) { 
     
   }
 
@@ -97,7 +99,7 @@ export class ScheduleComponent{
       initialDate: this.datePipe.transform(initialDate, "y-MM-dd"),
       finalDate: this.datePipe.transform(finalDate, "y-MM-dd"),
       ociosity: false,
-      resources: "313075",
+      resources: this.authService.getLoggedUser().code,
       detail: true
     };
 

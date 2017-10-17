@@ -183,15 +183,15 @@ export class AppointmentComponent implements OnInit {
         ticketPlanning.chamado = this.ticketSearch;
         ticketPlanning.clientCode = ticket.cientCode;
         ticketPlanning.clientName = ticket.cientName;
-        ticketPlanning.inicio = "2017-08-10";
-        ticketPlanning.termino = "2017-08-20";
+        ticketPlanning.inicio = this.datePipe.transform(new Date(), "y-MM-dd");
+        ticketPlanning.termino = this.datePipe.transform(new Date(), "y-MM-dd");
 
         console.log(this.datePipe.transform(new Date(ticketPlanning.inicio), "dd/MM/y"));
   
         this.plannings.push({
           ...ticketPlanning,
           items: [{ 
-            data: this.datePipe.transform(new Date(ticketPlanning.inicio), "dd/MM/y"), 
+            data: ticketPlanning.inicio, //this.datePipe.transform(new Date(ticketPlanning.inicio), "dd/MM/y"), 
             selected: true,
             horaIni: '08:00', 
             horaFin: '18:00', 
@@ -219,6 +219,14 @@ export class AppointmentComponent implements OnInit {
     let request: AgendaRequest;
     let itensRequest: AgendaRequestItem[] = []; 
 
+    if(this.email === ""){  
+      this.toaster.pop({
+        type: 'error',
+        body: "Informe o email!"
+      });    
+      return;
+    }
+
     this.sending = true;
 
     this.plannings.forEach(planning => {
@@ -243,32 +251,55 @@ export class AppointmentComponent implements OnInit {
               planning.clientCode,
               planning.clientName,
               ""
-            ));
+          ));
         }
       });
 
-      itensRequest.push(
-        new AgendaRequestItem(
-          planning.chamado,
-          planning.clientCode,
-          planning.clientName,
-          planning.cfpProject,
-          planning.pmsProject,
-          tasks
-        )
-      );
+      if(tasks.length > 0){
+        itensRequest.push(
+          new AgendaRequestItem(
+            planning.chamado,
+            planning.clientCode,
+            planning.clientName,
+            planning.cfpProject,
+            planning.pmsProject,
+            tasks
+          )
+        );
+      }
+      
     });
 
-    request = new AgendaRequest(
-      this.email,
-      this.emailcc,
-      itensRequest
-    );
-    
-    console.log(request);
-    this.agendaService.request(request).subscribe((res) => {
-      console.log(res);
+    if(itensRequest.length > 0){
+      request = new AgendaRequest(
+        this.email,
+        this.emailcc,
+        itensRequest
+      );
+      this.agendaService.request(request).subscribe((res) => {
+        console.log(res);
+        this.sending = false;
+      },
+      (err) => this.sending = true);
+    }
+    else{
       this.sending = false;
+      this.toaster.pop({
+        type: 'error',
+        body: "Nenhuma agenda selecionada!"
+      });    
+      return;
+    }    
+  }
+
+  addItem(idxPlanning){
+    console.log(idxPlanning);
+    this.plannings[idxPlanning].items.push({
+      data: this.datePipe.transform(new Date(), "y-MM-dd"),
+      selected: true,
+      horaIni: '08:00', 
+      horaFin: '18:00', 
+      horaInterv: '01:30' 
     });
   }
 

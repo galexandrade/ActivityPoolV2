@@ -35,7 +35,7 @@
         </div>
         <div class="col-xs-7">
           <thf-input
-            [ngModel]="planning.clientName"
+            [ngModel]="clientName"
             name="clientName"
             t-label="Cliente"
             t-placeholder="Nome do cliente"
@@ -175,8 +175,8 @@
       <br>
       <thf-button 
         t-primary="true"
-        [t-label]="sending ? 'processando' : 'Solicitar agendas' "
-        [t-icon]="sending ? 'thf-icon-more' : 'thf-ok'"
+        [t-label]="sending ? 'processando...' : 'Solicitar agendas' "
+        [t-icon]="sending ? '' : 'thf-ok'"
         [t-disabled]="sending"
         (t-click)="onSendRequest(f.value)"
         class="btnSubmit"

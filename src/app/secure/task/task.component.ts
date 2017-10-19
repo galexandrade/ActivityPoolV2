@@ -25,6 +25,8 @@ export class TaskComponent implements OnInit {
   timeFinal: string = "17:30";
   timeIntervalo: string = "01:30";
 
+  clientName = "";
+
   planning: Planning;
   email: string = "";
 
@@ -44,6 +46,7 @@ export class TaskComponent implements OnInit {
     console.log(this.poolService.selectedPlanningDay.toISOString());
     this.date = this.poolService.selectedPlanningDay.toISOString();
     this.email = this.parameterService.email;
+    this.clientName = this.planning.clientCode + " - " + this.planning.clientName;
   }
 
   goBack(): void {
@@ -91,12 +94,12 @@ export class TaskComponent implements OnInit {
 
   fillForm(form: any){
     console.log(form);
-    let data_planing = this.datePipe.transform(new Date(form.date), "y-MM-dd");    
+    let data_planing = this.datePipe.transform(new Date(form.date), "dd/MM/y");    
     let activity = form.activity.replace("\n", " ");
 
     console.log(activity);
 
-    var commands = `loadApointment('${this.planning.clientCode}', '${this.planning.clientName}', '${form.project}', '${form.front}', '2010067-2', '999', '${activity}', '${data_planing}');`;
+    var commands = `loadApointment(false, '${this.planning.clientCode}', '${this.planning.clientName}', '${form.project}', '${form.front}', '2010067-2', '999', '${activity}', '${data_planing}');`;
     console.log(commands);
 
     

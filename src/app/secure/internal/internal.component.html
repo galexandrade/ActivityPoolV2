@@ -1,0 +1,59 @@
+<div class="container" style="width: 500px;">
+  <div class="row">
+    <form #f="ngForm">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-3">
+          <thf-button
+            t-primary="false"
+            t-small="true"
+            t-label="Voltar"
+            t-icon="thf-icon-arrow-left"
+            (t-click)="goBack()">
+          </thf-button>
+        </div>
+        <div class="col-xs-9">
+          <div class="alert alert-info">
+            Preencherá o formulário de apontamento no Fluig automaticamente.
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-5">
+          <thf-datepicker
+            [(ngModel)]="date"
+            name="date"
+            t-format="dd/mm/yyyy"
+            t-label="Data"
+            [t-start]="dateStart"
+            [t-end]="dateEnd"
+            t-required="true">
+          </thf-datepicker>    
+        </div>
+        <div class="col-xs-12">
+            <thf-select
+              name="atividades"
+              [(ngModel)]="atividade"
+              t-label="Selecione uma atividade"
+              t-required="true"
+              [t-options]="activityList"
+              ngDefaultControl>
+            </thf-select>
+        </div>
+      </div>  
+    </div>
+    <div class="col-xs-12">
+      <br><br>
+      <thf-button 
+        t-primary="true"
+        t-label="Preencher campos"
+        t-icon="thf-edit"
+        (t-click)="fillForm(f.value)"
+        class="btnSubmit">
+      </thf-button>
+    </div>
+    </form>
+  </div>  
+</div>  

@@ -11,9 +11,9 @@ export class SecureComponent implements OnInit {
   
   constructor(private parameterService: ParameterService) {
     this.menu = [
-      { menuName: 'home', label: 'Home', link: '.' },
-      { menuName: 'appointment', label: 'Solicitar agendas', link: './appointment' },
-      { menuName: 'internal', label: 'Apontamentos internos', link: './internal' },
+      { menuName: 'home', label: 'Home', link: '/home/schedule' },
+      { menuName: 'appointment', label: 'Solicitar agendas', link: '/home/appointment' },
+      { menuName: 'internal', label: 'Apontamentos internos', link: '/home/internal' },
       { label: "Links úteis", subItems: [
         {label: "Portal de Serviços", link: "http://fluig.totvs.com/portal/p/10097/portal-servicos"},
         {label: "Pool de Recursos", link: "http://totvsjoi-hcm08:8080/portal/hcm/pool-recursos"},

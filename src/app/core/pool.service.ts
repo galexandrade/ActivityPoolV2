@@ -35,7 +35,7 @@ export class PoolService {
     },
     FERIADO: {
       "desc": "Feriado",
-      "color": "#4682B4"
+      "color": "#000000"
     },
     HOJE: {
       "desc": "Hoje",

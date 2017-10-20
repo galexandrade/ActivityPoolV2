@@ -39,6 +39,9 @@ export class ScheduleComponent{
     eventLimit: true, // allow "more" link when too many events
     viewRender: this.viewRender.bind(this),
     eventClick: this.eventClick.bind(this),
+    eventRender: (event, element) => {
+      element[0].title = event.title;
+    },
     locale: 'pt-br',
     events: []
   };
@@ -143,6 +146,7 @@ export class ScheduleComponent{
               start: holiday.date + 'T10:00:00',
               end: holiday.date + 'T10:00:00',
               title: holiday.name,
+              backgroundColor: this.poolService.EVENTCOLOR["FERIADO"].color,
               holiday: true
           });
 

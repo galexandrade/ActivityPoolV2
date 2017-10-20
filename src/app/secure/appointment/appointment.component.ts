@@ -26,6 +26,21 @@ import { trigger, state, style, transition, animate, keyframes, group } from '@a
 				}),
         animate(500)
       ])
+    ]),
+    trigger('enterAnimationItem', [
+      transition('void => *', [
+        style({
+					opacity: 0,
+					transform: 'translateY(-20px)'
+				}),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(300,style({
+					opacity: 0,
+					transform: 'translateY(-20px)'
+				}))
+      ])
     ])
   ]
 })
@@ -127,6 +142,7 @@ export class AppointmentComponent implements OnInit {
       if(data.length > 0 && !alreadyExists){
         this.plannings.push({
           ...planning,
+          selected: true,
           items: data,
           columns: this.columns.slice()
         });
@@ -301,6 +317,17 @@ export class AppointmentComponent implements OnInit {
       horaFin: '18:00', 
       horaInterv: '01:30' 
     });
+  }
+
+  changeAll(idxPlanning){
+    this.plannings[idxPlanning].items.forEach(item => {
+      item.selected = !this.plannings[idxPlanning].selected;
+    });
+    console.log(idxPlanning);
+  }
+
+  deleteItem(idxPlanning, idxItem){
+    this.plannings[idxPlanning].items.splice(idxItem, 1);
   }
 
 }

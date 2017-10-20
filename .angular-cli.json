@@ -21,7 +21,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/@totvs/thf-web/assets/style/global.css",
+        "../node_modules/@totvs/thf-theme-default/css/thf-theme-default.min.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/angular2-toaster/toaster.css",

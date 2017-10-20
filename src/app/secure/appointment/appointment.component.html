@@ -104,7 +104,9 @@
                     <table>
                       <thead>
                         <tr>
-                          <td></td>
+                          <td>
+                            <input type="checkbox" [(ngModel)]="planning.selected" name="select_all_{{idxPlanning}}" (click)="changeAll(idxPlanning)">
+                          </td>
                           <td>Data</td>
                           <td>Hr Início</td>
                           <td>Hr Final</td>
@@ -112,9 +114,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let item of planning.items; let i = index">
+                        <tr *ngFor="let item of planning.items; let i = index" [@enterAnimationItem]>
                           <td>
                             <input type="checkbox" [(ngModel)]="item.selected" name="select_item_{{i}}">
+                            <span class="delete-item-button thf-icon thf-icon-delete" (click)="deleteItem(idxPlanning, i)"></span>
                           </td>
                           <td>
                             <input type="date" [(ngModel)]="item.data" name="data_item_{{i}}">

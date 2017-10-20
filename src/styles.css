@@ -64,3 +64,11 @@ input.thf-input-elem{
 input.thf-input-elem[type=password] {
     margin-top: 5px !important;
 }
+
+
+
+.fc-today {
+    background: #BFEFFF !important;
+    border: none !important;
+    border-top: 1px solid #ddd !important;
+} 

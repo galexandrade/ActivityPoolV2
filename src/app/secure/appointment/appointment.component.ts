@@ -134,7 +134,7 @@ export class AppointmentComponent implements OnInit {
         if(planning.clientCode === planningsSearch.clientCode &&
            planning.cfpProject === planningsSearch.cfpProject &&
            planning.pmsProject === planningsSearch.pmsProject){
-          planningsSearch.items = [...planningsSearch.items, ...data].sort(this.sortDate);
+          planningsSearch.items = [...planningsSearch.items, ...data.slice()].sort(this.sortDate);
           alreadyExists = true;
         }           
       });
@@ -143,7 +143,7 @@ export class AppointmentComponent implements OnInit {
         this.plannings.push({
           ...planning,
           selected: true,
-          items: data,
+          items: data.slice().sort(this.sortDate),
           columns: this.columns.slice()
         });
       }

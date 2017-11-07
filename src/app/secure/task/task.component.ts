@@ -57,6 +57,10 @@ export class TaskComponent implements OnInit {
     console.log(form);
 
     this.sending = true;
+
+    let timeStart = form.timeStart.indexOf(":") === -1 ? (form.timeStart.substring(0,2) + ":" + form.timeStart.substring(2,4)) : form.timeStart;
+    let timeEnd = form.timeEnd.indexOf(":") === -1 ? (form.timeEnd.substring(0,2) + ":" + form.timeEnd.substring(2,4)) : form.timeEnd;
+    let timeInterval = form.timeInterval.indexOf(":") === -1 ? (form.timeInterval.substring(0,2) + ":" + form.timeInterval.substring(2,4)) : form.timeInterval;
     
     let request: AgendaRequest = new AgendaRequest(
       form.email,
@@ -71,9 +75,9 @@ export class TaskComponent implements OnInit {
           [
             new Task(
               this.datePipe.transform(new Date(form.date), "y-MM-dd"),
-              form.timeStart + ":00:00",
-              form.timeEnd + ":00:00",
-              form.timeInterval + ":00:00",
+              timeStart + ":00:00",
+              timeEnd + ":00:00",
+              timeInterval + ":00:00",
               form.ticket,
               form.project,
               form.front,

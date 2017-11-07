@@ -94,9 +94,15 @@
               <tr>
                 <td>{{planning.clientCode}}</td>
                 <td>{{planning.clientName}}</td>
-                <td>{{planning.chamado}}</td>
-                <td>{{planning.cfpProject}}</td>
-                <td>{{planning.pmsProject}}</td>
+                <td>
+                  <input type="text" [(ngModel)]="planning.chamado" name="chamado_{{idxPlanning}}">
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="planning.cfpProject" name="cfpProject_{{idxPlanning}}">
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="planning.pmsProject" name="pmsProject_{{idxPlanning}}">
+                </td>
               </tr>
               <tr class='expanded'>
                 <td colspan='5'>
@@ -172,8 +178,8 @@
     <div class="col-xs-12">
       <thf-button
         t-primary="true"
-        [t-label]="sending ? 'processando' : 'Solicitar agendas' "
-        [t-icon]="sending ? 'thf-icon-more' : 'thf-ok'"
+        [t-label]="sending ? 'processando...' : 'Solicitar agendas' "
+        [t-icon]="sending ? '' : 'thf-ok'"
         [t-disabled]="sending"
         (t-click)="onSendRequest()"
         class="btnSubmit">

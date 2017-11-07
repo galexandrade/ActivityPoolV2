@@ -81,6 +81,28 @@ textarea{
     margin-top:0px;
 }
 
+table.main_table > tbody >tr:first-child >td input{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background-color: #f3f3f3; 
+}
+
+/* TICKET */
+table.main_table > tbody >tr >td:nth-child(3) input{
+    width: 70px;
+}
+
+/* PROJETO */
+table.main_table > tbody >tr >td:nth-child(4) input{
+    width: 100px;
+}
+
+/* FRENTE */
+table.main_table > tbody >tr >td:nth-child(5) input{
+    width: 70px;
+}
+
 table.main_table .table-detail-container{
     margin-top:-8px;
 }

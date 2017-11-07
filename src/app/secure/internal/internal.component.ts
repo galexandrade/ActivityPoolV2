@@ -16,7 +16,7 @@ export class InternalComponent implements OnInit {
 
   activityList: Array<ThfSelectOption> = [
     {value: '09', label: 'Atestado médico / Licença'},
-    {value: '22', label: 'Falta ou descanço'},
+    {value: '22', label: 'Falta ou descanso'},
     {value: '10', label: 'Férias'},
     {value: '11', label: 'Não alocação'},
     {value: '18', label: 'Reserva de agenda - Faturável'},
